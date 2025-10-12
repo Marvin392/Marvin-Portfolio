@@ -56,7 +56,8 @@
       <div class="top-actions"style="display: flex; flex-direction: column;">
         <a class="btn" href="#projects">Projets détaillés</a>
         <a class="btn" href="#contact">Contact</a>
-        <a class="btn" href="assets/Marvin_IshqYonan_CV_TEST.pdf">Télécharger le CV</a>
+        <a class="btn" href="assets/Marvin_IshqYonan_CV_TEST.pdf">Télécharger le CV (PDF)</a>
+        <a class="btn" href="#expériences">Expériences </a>
       </div>
     </header>
 
@@ -66,7 +67,7 @@
         <section id="about" class="card">
           <h2>Présentation</h2>
           <p>Je suis étudiant en 5ᵉ année à l'INSA Toulouse (Automatique & Électronique, parcours Systèmes Embarqués). Mes travaux et projets couvrent la conception matérielle (VHDL/FPGA), la programmation embarquée (C/C++ sur ESP32), la communication sans fil (LoRa), la sécurité embarquée (HMAC, ECDSA, chiffrement), et les systèmes temps réel (FreeRTOS, Xenomai).</p>
-          <p class="small">Ce portfolio reprend en détail mes projets académiques et personnels, les choix d'architecture technique, les challenges rencontrés et les solutions mises en œuvre — utile pour évaluer ma capacité à travailler sur des systèmes critiques en automobile ou aéronautique.</p>
+          <p class="small">Ce portfolio reprend en détail mes projets académiques et personnels, les choix d'architecture technique, les challenges rencontrés et les solutions mises en œuvre — utile pour évaluer ma capacité à travailler sur des systèmes critiques en aéronautique ou automobile.</p>
         </section>
 
         <section id="projects" class="card" style="margin-top:16px">
@@ -75,16 +76,16 @@
           <div class="projects">
 
             <article id="proj-payment" class="proj">
-              <h3>Système de paiement embarqué distribué (ESP32, LoRa, NFC)</h3>
-              <div class="tags small">ESP32 • LoRa • PN532 • FreeRTOS • SD • AES / HMAC / ECDSA</div>
-              <p><strong>Objectif :</strong> Concevoir un prototype complet d’un système de paiement embarqué composé d’un terminal OPS (Point Of Sale) et d’un serveur bancaire sur ESP32, communiquant via modules LoRa (long-range) pour démontrer la faisabilité d’un réseau de paiement à faible bande passante.</p>
+              <h3>Système de paiement embarqué distribué (ESP32, LoRa, NFC) (Projet Personnel)</h3>
+              <div class="tags small">ESP32 • LoRa • PN532 • FreeRTOS • SD • AES / Cryptage / µC et périphériques</div>
+              <p><strong>Objectif :</strong> Concevoir un prototype complet d’un système de paiement embarqué composé d’un terminal POS (Point Of Sale) et d’un serveur bancaire sur ESP32, communiquant via modules LoRa (long-range) pour démontrer la faisabilité d’un réseau de paiement à faible bande passante.</p>
 
               <h4>Architecture</h4>
               <p>Architecture distribuée composée de :</p>
               <ul>
                 <li><strong>OPS (Terminal)</strong> : ESP32 + PN532 (NFC), clavier matriciel, écran/LED, lecteur SD, buzzer. Gère l’interface utilisateur, la lecture carte, la journalisation locale et la communication LoRa vers la banque.</li>
-                <li><strong>Bank (Serveur)</strong> : ESP32 ou machine hôte (PC) simulant la banque, recevant requêtes, validant soldes et signant réponses. Fournit mode admin (REST ou série) et base de données persistante sur SD/PC.</li>
-                <li><strong>Transport</strong> : LoRa (module RFM9x ou SX127x). Développement d’une couche applicative propriétaire pour fiabilité (ack, retry, fragmentation si nécessaire) et sécurité (HMAC sur charge utile).</li>
+                <li><strong>Bank (Serveur)</strong> : ESP32 + PN532 (NFC) + PC, simulant la banque, recevant requêtes, validant soldes et signant réponses. Fournit mode admin (REST ou série) et base de données persistante sur SD.</li>
+                <li><strong>Transport</strong> : LoRa (module SX127x). Développement d’une couche applicative propriétaire pour fiabilité (ack, retry, fragmentation si nécessaire) et sécurité (HMAC sur charge utile).</li>
               </ul>
 
               <h4>Protocoles & messages</h4>
@@ -103,7 +104,7 @@
               <h4>Realtime & logiciel embarqué</h4>
               <p>Conception sous <strong>FreeRTOS</strong> :</p>
               <ul>
-                <li><strong>Tasks:</strong> <code>nfc_task</code> (blocking read), <code>keypad_task</code>, <code>comm_task</code> (LoRa send/receive), <code>storage_task</code> (SD journaling), <code>ui_task</code>.</li>
+                <li><strong>Tasks:</strong> <code>nfc_task</code> (blocking read), <code>keypad_task</code>, <code>comm_task</code> (LoRa send/receive), <code>storage_task</code> (SD journaling), et bien plus pour gérer l'aspet temps réel du logiciel embarqué</li>
                 <li>Communication inter-tâches via queues et événements : découplage I/O ↔ logique métier.</li>
                 <li>Watchdog, timeouts et priorités pour garantir réactivité sur interruptions critiques (NFC arrival, tamper).</li>
               </ul>
@@ -113,102 +114,150 @@
 
               <h4>Détails techniques et drivers</h4>
               <ul>
-                <li>PN532 via I²C / SPI : driver bas-niveau, gestion des frames ISO14443 si nécessaire.</li>
+                <li>PN532 via I²C / SPI / UART : driver bas-niveau, gestion des UID des cartes.</li>
                 <li>LoRa radio : driver SPI + gestion du SX127x, adaptation des paramètres (SF, BW) pour portée/latence.</li>
                 <li>UART pour logs/console et éventuellement connexion au PC (admin).</li>
                 <li>Utilisation de timers matériels et PWM pour signaux buzzer et feedback lumineux.</li>
               </ul>
 
-              <h4>Pourquoi c’est pertinent pour l’automobile/aéronautique</h4>
+              <h4>Pourquoi c’est pertinent pour l’aéronautique/automobile</h4>
               <p>Projet démontrant la maîtrise des contraintes de systèmes embarqués connectés sur réseaux contraints, l’implémentation de mécanismes d’intégrité et de reprise après incident — compétences transférables aux E/E architectures dans l’automobile et la redondance critique en aéronautique.</p>
             </article>
 
             <article id="proj-fpga" class="proj">
               <h3>Conception VHDL / FPGA — cœurs et micro-architectures</h3>
-              <div class="tags small">VHDL • FPGA • Vivado • Synthèse • Testbench</div>
-              <p><strong>Objectifs :</strong> Concevoir, simuler et synthétiser des blocs numériques (ALU, registres, mémoire) et un cœur RSA en VHDL pour FPGA, accompagné d’un assembleur simple pour tests.</p>
+              <div class="tags small">VHDL • FPGA • Vivado • Synthèse</div>
+              <p><strong>Objectifs :</strong> Concevoir, simuler et synthétiser des blocs numériques (ALU, registres, mémoire) et un cœur RSA en VHDL sur FPGA.</p>
 
               <h4>Travail réalisé</h4>
               <ul>
                 <li>Développement de modules VHDL modulaire : unités arithmétiques, contrôleurs mémoire, interface d’E/S.</li>
-                <li>Implémentation d’un cœur RSA optimisé pour FPGA (pipelining, gestion de mots de taille adaptée), tests fonctionnels via testbench VHDL.</li>
+                <li>Implémentation d’un cœur RSA optimisé pour FPGA (pipelining, gestion de mots de taille adaptée).</li>
                 <li>Utilisation de Vivado pour synthèse, contraintes timing, et génération du bitstream.</li>
-                <li>Rédaction d’un assembleur éducatif pour injecter programmes de test dans la ROM/BRAM du design.</li>
+                <li>Rédaction d’un assembleur éducatif pour injecter programmes de test dans la ROM du design.</li>
               </ul>
 
               <h4>Compétences démontrées</h4>
               <p>Maîtrise du flux FPGA (modélisation ↔ simulation ↔ synthèse), compréhension des compromis area/perf/consommation, et bonnes pratiques de design vérifiables (testbench et assertions).</p>
             </article>
 
-            <article id="proj-robot" class="proj">
-              <h3>Robotique & simulations (RoboDK / Xenomai)</h3>
-              <div class="tags small">RoboDK • Xenomai • C++ • ROS (basique)</div>
-              <p>Travail sur simulation robotique (Auctech X10-1300) avec RoboDK et intégration de contrôles temps réel sur plate-forme Xenomai pour garantir latence et déterminisme.</p>
+            <article id="proj-voilier" class="proj">
+              <h3>Périphériques et µcontrolleur</h3>
+              <div class="tags small">STM32 • Keil • GPIO • UART • PWM • Timers</div>
+              <p>Prise en main du logiciel Keil pour la programation d'un voilier intelligent en utilisant les différents périphériques et fonctionnalités d'un STM32 (carte nucléo) et mise en place de drivers pour piloter le fonctionnement du voilier intelligent (suivre la direction du vent avec les voils à l'aide d'un codeur incrémental, communiquer le niveau de batterie à un écran, piloter la direction du voilier, envoyer des informations selon l'orientation et roulis du voilier à l'aide d'un accéléromètre).</p>
               <ul>
-                <li>Optimisation de trajectoires, tests de collision et validation offline.</li>
-                <li>Portage de contrôleurs en C++ en mode temps réel pour vérification des délais et jitter.</li>
+                <li>Algorithme de suivie de la direction du vent.</li>
+                <li>Signaux PWM pour le pilotage du voilier.</li>
+                <li>Communication I2C et SPI pour envoyer des informations pertinentes à une interface (via XBee).</li>
               </ul>
             </article>
 
-            <article id="proj-control" class="proj">
-              <h3>Contrôle échantillonné — RST controller</h3>
-              <div class="tags small">Contrôle • Discret • z-transform</div>
-              <p>Résolution d’un exercice d’analyse et synthèse de contrôleur RST pour une fonction de transfert discrète <code>G(z) = 4z/(z-1)^2</code>, avec contraintes sur dynamiques de régulation et de suivi et conditions de mise en œuvre (gain statique unité, réalisabilité).</p>
-              <p>Approche : calcul de polynômes d’ordres adaptés, résolution algébrique symbolique et simulation numérique pour validation de la stabilité et des performances.</p>
+            <article id="proj-ampere" class="proj">
+              <h3>Ampermètre</h3>
+              <div class="tags small">KiCad • électronique • conception • PCB</div>
+              <p>Conception et réalisation d'un ampermètre à resistance de shunt pour utlisation dans un futur bureau d'études de trotinette électrique</p>
+              <ul>
+                <li>Conception de la carte et dimensionnement de composantes électroniques sur LTspice.</li>
+                <li>Routage et mise en place des composantes du PCB sur KiCad.</li>
+                <li>Tests pour s'assurer du bon fonctionnement de la carte finale sur PCB.</li>
+              </ul>
             </article>
 
-            <article id="proj-blender" class="proj">
-              <h3>Blender — animation & rendu</h3>
-              <div class="tags small">Blender • Animation • Looping</div>
-              <p>Création d’une scène texturée (plan bois, gummies), mise en place d’une courte animation en boucle des objets tombant en arrière-plan. Travail sur matériaux, cycles de rendu et optimisation pour export d’un GIF ou vidéo courte.</p>
+              <article id="proj-trot" class="proj">
+                <h3>Trotinette électrique</h3>
+                <div class="tags small">électronique de puissance • correcteur • STM32 • Automatique</div>
+                <p>Conception d'un correcteur sur STM32 pour le fonctionnement d'une trotinette électrique, avec les fonctionnalités : marche avant et arrière et freinage régénératif.</p>
+                <ul>
+                  <li>Calcul des différentes valeurs du correcteur.</li>
+                  <li>Implémentation du correcteur sur STM32.</li>
+                  <li>Tests pour s'assurer du bon fonctionnement de la trotinette, du moteur et du freinage régénératif.</li>
+                </ul>
+              </article>
+
+                <article id="proj-eau" class="proj">
+                  <h3>Colonne d'eau</h3>
+                  <div class="tags small">Matlab • automatique • correcteur</div>
+                  <p>Travail sur une colonne d'eau munie d'une pompe à eau, pour régulariser l'entrée de l'eau à la colonne à l'aide d'un correcteur</p>
+                  <ul>
+                    <li>Receuillement de données sur Matlab pour l'identification du comportement du système (colonne + pompe à eau).</li>
+                    <li>Dimensionnement des valeurs du correcteur.</li>
+                    <li>Simulation puis implémentation et tests du correcteur via Matlab.</li>
+                  </ul>
+                </article>
+
+                  <article id="proj-rtos" class="proj">
+                    <h3>Robot Dumber</h3>
+                    <div class="tags small">RTOS • C++ • Xenomai • temps réel</div>
+                    <p>Programmation C++ en temps réel des tâches du robot "Dumber" dans une arène</p>
+                    <ul>
+                      <li>Prise en main et compréhension des concepts de la programmation en temps réel.</li>
+                      <li>Définition et implémentation de différentes tâches pour le mouvement du robot, détection de l'arène, positionnement du robot, ...</li>
+                    </ul>
+                  </article>
+
+                    <article id="proj-ampli" class="proj">
+                      <h3>Amplificatuer BJT</h3>
+                      <div class="tags small">électronique • dimensionnement • conception</div>
+                      <p>Conception puis dimensionnement d'un circuit amplificateur audio différentiel, basé sur une architecture de transistor BJT</p>
+                      <ul>
+                        <li>Conception et dimensionnement électronique des différentes parties et niveaux de l'amplificateur différentiel.</li>
+                        <li>Test final pour s'assurer du bon fonctionement du circuit en émettant les sons d'un ordinateur vers une enceinte.</li>
+                      </ul>
+                    </article>
+
+            <article id="proj-C" class="proj">
+              <h3>C++ embarqué pour la domotique (mini projet)</h3>
+              <div class="tags small">C++ • arduino • capteurs/actionneurs</div>
+              <p>Mini projet portant sur la combinaison et l'interaction entre différents capteurs et actionneurs pour envoyer à l'utilisateur de l'inforation regardant l'état de la pièce (température, humidité, luminosité) tout en envoyant un message d'alarme en cas de dépassement de seuils.</p>
             </article>
 
-            <article id="proj-embedded-linux" class="proj">
-              <h3>Embedded Linux & Yocto — auto-formation</h3>
-              <div class="tags small">Yocto • OpenEmbedded • Cross-compilation</div>
-              <p>Objectif d’apprentissage : génération d’images Linux embarquées, écriture de recettes, configuration d’un SDK de cross-compilation et déploiement sur cibles ARM. Compétences recherchées : intégration composants, dépannage toolchain, packaging.</p>
-            </article>
-
-            <article id="proj-frama" class="proj">
-              <h3>Analyse statique — Frama‑C et annotation</h3>
-              <div class="tags small">Frama‑C • analyse formelle • annotations</div>
-              <p>Travail sur l'annotation et la compréhension des options d'unrolling (<code>-ulevel</code>, <code>-slevel</code>) et adaptation de code pour l'analyse (boucles, branches). Expérience avec diagnostics et correction de code non conforme.</p>
-            </article>
-
-            <article id="proj-keil" class="proj">
-              <h3>Projet Keil / ESP32 & développement embarqué</h3>
-              <div class="tags small">ESP-IDF • Keil µVision • debugging</div>
-              <p>Expérimentations avec différents environnements (Espressif IDE, ESP-IDF, Keil) pour configuration d'outils, scripts d'initialisation et debugging de bas niveau. Gestion de dépendances Python, Git et environnement de compilation.</p>
-            </article>
-
-            <article id="proj-presentation" class="proj">
-              <h3>Présentations & vulgarisation technique</h3>
-              <div class="tags small">PowerPoint • Communicating results</div>
-              <p>Réalisation de slides pour exposer travaux universitaires (ex : fréquence du cva6, CoreMark, MNIST) et synthèses techniques destinées à un public technique et non technique.</p>
-            </article>
 
           </div>
         </section>
 
-        <section id="methodology" class="card" style="margin-top:16px">
-          <h2>Méthodologie & bonnes pratiques</h2>
+          <section id="expériences" class="card" style="margin-top:16px">
+          <h2>Expériences professionnels</h2>
+
+          <div class="exp">
+            <article id="exp-phoenix" class="exp">
+              <h3>Stage de 3 mois au sein de Phoenix Hellas - Athènes</h3>
+              <h4>Programmation robotique industrielle + PLC pour automatismes</h4>
+              <div class="tags small">Juillet 2025 - Septembre 2025</div>
+              <p>Ce stage a porté d'abord sur la programmation d'un bras robotisés collaboratif, pour finalement être placé dans un environnement de production, afin de réaliser le placement des produits sur une palette en bois. Vers la fin du stage, l'attention s'est tournée vers la programmation de PLC + servo moteur afin de faire la synchronisation avec un autre servo moteur au sein d'une ligne de production.</p>
+              <h4>Travail effectué</h4>
+              <ul>
+                <li>Simulation du bras robotisé dan l'environnement sur l'application RoboDK.</li>
+                <li>Prgrammation initiale de la trajectoire du robot.</li>
+                <li>Amélioration du programme en implémentant l'usage de PLC pour changer des valeurs clés pour le fonctionnement du robot d'une manière rapide et efficace.</li>
+                <li>Programmation de PLC pour la synchronisation de servo moteur sur ligne de production.</li>
+              </ul>
+            </article>
+
+            <article id="exp-domo" class="exp">
+              <h3>Stage ouvrier</h3>
+              <h3>Stage ouvrier d'un mois au sein de Meptico Domo - Liban</h3>
+              <div class="tags small">Juillet 2022 - Août 2022</div>
+              <p> durant ce stage j'ai pu découvrir et avoir une première idée du travail en entreprise dans une usine de production. Mais j'ai aussi pu suivre l'équipe de maintenance dans leur travaux et contribuer à la maintenance préventive des machines à sceller.</p>
+            </article>
+
+          </div>
+          </section>
+
+
+
+        <section id="languages" class="card" style="margin-top:16px">
+          <h2>Langues</h2>
           <ul class="clean">
-            <li><strong>Itération rapide :</strong> prototypage des pilotes puis intégration progressive en RTOS.</li>
-            <li><strong>Tests unitaires et bancs de tests :</strong> testbench VHDL, harnesss C pour drivers, tests d’intégration LoRa.</li>
-            <li><strong>Gestion du code :</strong> Git, commits atomiques et README de projet pour reproductibilité.</li>
-            <li><strong>Documentation :</strong> schémas d’architecture, diagramme de tâches FreeRTOS, spécifications de message (taille, endianness, HMAC algo).</li>
-            <li><strong>Sécurité par couches :</strong> chiffrement au repos, signatures pour jetons, nonces/seq nums pour anti-replay.</li>
+            <li>Français : Trilingue.</li>
+            <li>Anglais : Trilingue.</li>
+            <li>Arabe : Langue Maternelle.</li>
+            <li>Espagnol : Niveau intermédiaire supérieur (niveau B2).</li>
           </ul>
         </section>
 
       </main>
 
       <aside>
-        <div class="card">
-          <h2>Coordonnées & profil</h2>
-          <p class="meta">Marvin Ishq Yonan<br />Étudiant ingénieur — INSA Toulouse</p>
-          <p class="meta">Email : <a href="mailto:ishqyona@insa-toulouse.fr">ishqyona@insa-toulouse.fr</a><br/>Téléphone : +33 6 71 81 15 33</p>
-        </div>
 
         <div class="card" style="margin-top:12px">
           <h2>Compétences techniques</h2>
@@ -228,32 +277,22 @@
 
         <div class="card" style="margin-top:12px">
           <h2>Formation</h2>
-          <p class="small"><strong>INSA Toulouse</strong> — Diplôme d'ingénieur (Automatique & Électronique), spécialisation Systèmes Embarqués (2021–en cours).</p>
+          <p><strong>INSA Toulouse</strong> — Diplôme d'ingénieur Automatique & Électronique, spécialisation Systèmes Embarqués (2021–en cours).</p>
+          <p><strong>Collège Notre Dame de Louaizé</strong> — Baccalauréat français général - spécialité Maths/Physiques-Chimie <strong>Mention très bien</strong></p>
         </div>
 
         <div class="card" style="margin-top:12px">
           <h2>Téléchargements</h2>
-          <p class="small">CV complet et documents :</p>
+          <p class="small">CV complet :</p>
           <a class="btn" href="assets/Marvin_IshqYonan_CV_TEST.pdf" target="_blank">Télécharger le CV (PDF)</a>
         </div>
 
       </aside>
     </div>
 
-    <section class="card" style="margin-top:18px">
-      <h2 id="how-to-add-images">Où et comment ajouter des photos / fichiers</h2>
-      <p class="small">Images et fichiers se trouvent dans le dossier <code>assets/</code> du dépôt. Nomme tes fichiers sans espaces ni caractères spéciaux (ex : <code>profile.jpg</code>, <code>project_loRa.jpg</code>).</p>
-      <ol>
-        <li>Ajoute l'image au dossier local <code>assets/</code> puis <code>git add assets/mon_image.jpg</code>.</li>
-        <li>Modifie le fichier <code>index.html</code> : remplace le chemin <code>assets/nom.jpg</code> pour l'élément &lt;img&gt; correspondant.</li>
-        <li><code>git commit -m "Ajout image projet X"</code> et <code>git push</code>. GitHub Pages mettra à jour le site automatiquement.</li>
-      </ol>
-      <p class="small">Si tu préfères l'interface web : GitHub → Add file → Upload files → Commit, puis Edit file pour pointer le HTML vers le nouveau nom.</p>
-    </section>
-
     <section id="contact" class="card" style="margin-top:18px">
       <h2>Contact</h2>
-      <p class="small">Disponible pour PFE / stage en systèmes embarqués — contactez-moi par email ou téléphone. Je fournis aussi des démonstrations techniques, dépôts Git et dossiers d’architecture sur demande.</p>
+      <p class="small">Disponible pour PFE / stage en systèmes embarqués — contactez-moi par email ou téléphone.</p>
       <p class="small"><strong>Email:</strong> <a href="mailto:ishqyona@insa-toulouse.fr">ishqyona@insa-toulouse.fr</a> &nbsp; • &nbsp; <strong>Téléphone:</strong> +33 6 71 81 15 33</p>
     </section>
 
@@ -261,6 +300,12 @@
       <div class="small">© Marvin Ishq Yonan — Portfolio technique complet • Dernière mise à jour : Octobre 2025</div>
     </footer>
   </div>
+
+          <div class="card">
+          <h2>Coordonnées & profil</h2>
+          <p class="meta">Marvin Ishq Yonan<br />Étudiant ingénieur — INSA Toulouse</p>
+          <p class="meta">Email : <a href="mailto:ishqyona@insa-toulouse.fr">ishqyona@insa-toulouse.fr</a><br/>Téléphone : +33 6 71 81 15 33</p>
+        </div>
 
   <script>
     // Smooth scroll for anchors
