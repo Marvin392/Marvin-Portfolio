@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marvin Ishq Yonan — Portfolio détaillé</title>
+  <meta name="description" content="Portfolio détaillé de Marvin Ishq Yonan — projets en systèmes embarqués : ESP32, LoRa, NFC, FreeRTOS, sécurité, VHDL/FPGA, simulation et robotique." />
+  <style>
+    :root{--accent:#0b7285;--muted:#6c757d;--bg:#07111a;--card:#08141d;--glass:rgba(255,255,255,0.03);--maxw:1100px}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; background:linear-gradient(180deg,#041017 0%, #07111a 100%); color:#e6eef6}
+    .wrap{max-width:var(--maxw); margin:28px auto; padding:26px}
+    header{display:flex; gap:20px; align-items:center}
+    .avatar{width:140px; height:140px; border-radius:12px; overflow:hidden; flex:0 0 140px; background:#071722}
+    .avatar img{width:100%; height:100%; object-fit:cover}
+    h1{margin:0; font-size:26px}
+    p.lead{margin:6px 0 0; color:var(--muted)}
+    .top-actions{margin-left:auto; display:flex; gap:10px}
+    a.btn{background:var(--accent); color:white; padding:8px 12px; border-radius:8px; text-decoration:none; font-weight:600}
+    .grid{display:grid; grid-template-columns:1fr 360px; gap:22px; margin-top:22px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr} .top-actions{margin-left:0}}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px; border-radius:12px; box-shadow: 0 8px 30px rgba(2,6,23,0.65)}
+    section h2{margin-top:0; font-size:18px}
+    .meta{color:var(--muted); font-size:14px}
+    ul.clean{list-style:none; padding:0; margin:8px 0}
+    ul.clean li{padding:10px 0; border-bottom:1px dashed rgba(255,255,255,0.03)}
+    .skills{display:flex; flex-wrap:wrap; gap:8px}
+    .skill{background:var(--glass); padding:6px 10px; border-radius:999px; color:#cfe9f4; font-size:13px}
+    .projects{display:flex; flex-direction:column; gap:16px}
+    .proj{display:block}
+    .proj h3{margin:4px 0 6px}
+    .proj .tags{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px}
+    .proj p{margin:6px 0 0; line-height:1.45}
+    code{background:#02111a; padding:2px 6px; border-radius:6px}
+    pre{background:#05121a; padding:12px; border-radius:8px; overflow:auto}
+    footer{margin-top:28px; text-align:center; color:var(--muted); font-size:13px}
+    .small{font-size:13px; color:var(--muted)}
+    .contact a{color:inherit; text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="avatar card">
+        <img src="assets/profile.jpg" alt="Photo de Marvin Ishq Yonan" />
+      </div>
+      <div>
+        <h1>Marvin Ishq Yonan</h1>
+        <p class="lead">Élève ingénieur — Automatique & Électronique, spécialité Systèmes Embarqués — INSA Toulouse</p>
+        <p class="meta">Recherche PFE / stage en systèmes embarqués (automobile & aéronautique). Compétences : embarqué, communication radio (LoRa), sécurité, VHDL/FPGA.</p>
+        <div style="margin-top:8px" class="contact">
+          <a class="small" href="mailto:ishqyona@insa-toulouse.fr">ishqyona@insa-toulouse.fr</a>&nbsp;•&nbsp;<span class="small">+33 6 71 81 15 33</span>
+          &nbsp;•&nbsp;<a class="small" href="assets/Marvin_IshqYonan_CV_TEST.pdf" target="_blank">Télécharger le CV (PDF)</a>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="btn" href="#projects">Projets détaillés</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+
+        <section id="about" class="card">
+          <h2>Présentation</h2>
+          <p>Je suis étudiant en 5ᵉ année à l'INSA Toulouse (Automatique & Électronique, parcours Systèmes Embarqués). Mes travaux et projets couvrent la conception matérielle (VHDL/FPGA), la programmation embarquée (C/C++ sur ESP32), la communication sans fil (LoRa), la sécurité embarquée (HMAC, ECDSA, chiffrement), et les systèmes temps réel (FreeRTOS, Xenomai).</p>
+          <p class="small">Ce portfolio reprend en détail mes projets académiques et personnels, les choix d'architecture technique, les challenges rencontrés et les solutions mises en œuvre — utile pour évaluer ma capacité à travailler sur des systèmes critiques en automobile ou aéronautique.</p>
+        </section>
+
+        <section id="projects" class="card" style="margin-top:16px">
+          <h2>Projets — Description complète et technique</h2>
+
+          <div class="projects">
+
+            <article id="proj-payment" class="proj">
+              <h3>Système de paiement embarqué distribué (ESP32, LoRa, NFC)</h3>
+              <div class="tags small">ESP32 • LoRa • PN532 • FreeRTOS • SD • AES / HMAC / ECDSA</div>
+              <p><strong>Objectif :</strong> Concevoir un prototype complet d’un système de paiement embarqué composé d’un terminal OPS (Point Of Sale) et d’un serveur bancaire sur ESP32, communiquant via modules LoRa (long-range) pour démontrer la faisabilité d’un réseau de paiement à faible bande passante.</p>
+
+              <h4>Architecture</h4>
+              <p>Architecture distribuée composée de :</p>
+              <ul>
+                <li><strong>OPS (Terminal)</strong> : ESP32 + PN532 (NFC), clavier matriciel, écran/LED, lecteur SD, buzzer. Gère l’interface utilisateur, la lecture carte, la journalisation locale et la communication LoRa vers la banque.</li>
+                <li><strong>Bank (Serveur)</strong> : ESP32 ou machine hôte (PC) simulant la banque, recevant requêtes, validant soldes et signant réponses. Fournit mode admin (REST ou série) et base de données persistante sur SD/PC.</li>
+                <li><strong>Transport</strong> : LoRa (module RFM9x ou SX127x). Développement d’une couche applicative propriétaire pour fiabilité (ack, retry, fragmentation si nécessaire) et sécurité (HMAC sur charge utile).</li>
+              </ul>
+
+              <h4>Protocoles & messages</h4>
+              <p>Format binaire compact : en-tête (version, type, longueur), <code>txn_id</code> 64-bit, <code>card_id</code>, montant, timestamp, nonce et HMAC. Exemple :</p>
+              <pre><code>{hdr, txn_id, card_id, amount_cents, ts, nonce, hmac}</code></pre>
+              <p>Transactions idempotentes grâce à <code>txn_id</code>. Retransmission gérée par ACK/NAK. Pour la basse-latence et la faible bande passante LoRa, les paquets sont courts et les états de la transaction sont minimaux.</p>
+
+              <h4>Sécurité</h4>
+              <ul>
+                <li><strong>Prototype:</strong> PSK + HMAC pour authentifier et garantir l’intégrité des messages entre OPS et Bank.</li>
+                <li><strong>Évolution:</strong> ECDSA pour signatures de jetons d’enrôlement, ECDH pour négociation de clés de session, AES-GCM pour chiffrement des données sensibles.</li>
+                <li><strong>Stockage sécurisé:</strong> journal des transactions signé et chiffré sur SD (append-only + vérification d’intégrité au démarrage).</li>
+                <li><strong>Enrôlement de carte:</strong> jeton signé par la banque (structure : {card_id, account_id, issued_at, expires, signature}). Le terminal vérifie la signature côté banque avant d’accepter toute transaction associée.</li>
+              </ul>
+
+              <h4>Realtime & logiciel embarqué</h4>
+              <p>Conception sous <strong>FreeRTOS</strong> :</p>
+              <ul>
+                <li><strong>Tasks:</strong> <code>nfc_task</code> (blocking read), <code>keypad_task</code>, <code>comm_task</code> (LoRa send/receive), <code>storage_task</code> (SD journaling), <code>ui_task</code>.</li>
+                <li>Communication inter-tâches via queues et événements : découplage I/O ↔ logique métier.</li>
+                <li>Watchdog, timeouts et priorités pour garantir réactivité sur interruptions critiques (NFC arrival, tamper).</li>
+              </ul>
+
+              <h4>Gestion des pannes & mode hors-ligne</h4>
+              <p>Terminal peut accepter des paiements limités en mode hors-ligne via jetons d’autorisation temporaires signés par la banque. Tous les paiements sont journalisés atomiquement sur SD (écriture temp puis rename) pour pouvoir rejouer et synchroniser les transactions au retour de la connexion.</p>
+
+              <h4>Détails techniques et drivers</h4>
+              <ul>
+                <li>PN532 via I²C / SPI : driver bas-niveau, gestion des frames ISO14443 si nécessaire.</li>
+                <li>LoRa radio : driver SPI + gestion du SX127x, adaptation des paramètres (SF, BW) pour portée/latence.</li>
+                <li>UART pour logs/console et éventuellement connexion au PC (admin).</li>
+                <li>Utilisation de timers matériels et PWM pour signaux buzzer et feedback lumineux.</li>
+              </ul>
+
+              <h4>Pourquoi c’est pertinent pour l’automobile/aéronautique</h4>
+              <p>Projet démontrant la maîtrise des contraintes de systèmes embarqués connectés sur réseaux contraints, l’implémentation de mécanismes d’intégrité et de reprise après incident — compétences transférables aux E/E architectures dans l’automobile et la redondance critique en aéronautique.</p>
+            </article>
+
+            <article id="proj-fpga" class="proj">
+              <h3>Conception VHDL / FPGA — cœurs et micro-architectures</h3>
+              <div class="tags small">VHDL • FPGA • Vivado • Synthèse • Testbench</div>
+              <p><strong>Objectifs :</strong> Concevoir, simuler et synthétiser des blocs numériques (ALU, registres, mémoire) et un cœur RSA en VHDL pour FPGA, accompagné d’un assembleur simple pour tests.</p>
+
+              <h4>Travail réalisé</h4>
+              <ul>
+                <li>Développement de modules VHDL modulaire : unités arithmétiques, contrôleurs mémoire, interface d’E/S.</li>
+                <li>Implémentation d’un cœur RSA optimisé pour FPGA (pipelining, gestion de mots de taille adaptée), tests fonctionnels via testbench VHDL.</li>
+                <li>Utilisation de Vivado pour synthèse, contraintes timing, et génération du bitstream.</li>
+                <li>Rédaction d’un assembleur éducatif pour injecter programmes de test dans la ROM/BRAM du design.</li>
+              </ul>
+
+              <h4>Compétences démontrées</h4>
+              <p>Maîtrise du flux FPGA (modélisation ↔ simulation ↔ synthèse), compréhension des compromis area/perf/consommation, et bonnes pratiques de design vérifiables (testbench et assertions).</p>
+            </article>
+
+            <article id="proj-robot" class="proj">
+              <h3>Robotique & simulations (RoboDK / Xenomai)</h3>
+              <div class="tags small">RoboDK • Xenomai • C++ • ROS (basique)</div>
+              <p>Travail sur simulation robotique (Auctech X10-1300) avec RoboDK et intégration de contrôles temps réel sur plate-forme Xenomai pour garantir latence et déterminisme.</p>
+              <ul>
+                <li>Optimisation de trajectoires, tests de collision et validation offline.</li>
+                <li>Portage de contrôleurs en C++ en mode temps réel pour vérification des délais et jitter.</li>
+              </ul>
+            </article>
+
+            <article id="proj-control" class="proj">
+              <h3>Contrôle échantillonné — RST controller</h3>
+              <div class="tags small">Contrôle • Discret • z-transform</div>
+              <p>Résolution d’un exercice d’analyse et synthèse de contrôleur RST pour une fonction de transfert discrète <code>G(z) = 4z/(z-1)^2</code>, avec contraintes sur dynamiques de régulation et de suivi et conditions de mise en œuvre (gain statique unité, réalisabilité).</p>
+              <p>Approche : calcul de polynômes d’ordres adaptés, résolution algébrique symbolique et simulation numérique pour validation de la stabilité et des performances.</p>
+            </article>
+
+            <article id="proj-blender" class="proj">
+              <h3>Blender — animation & rendu</h3>
+              <div class="tags small">Blender • Animation • Looping</div>
+              <p>Création d’une scène texturée (plan bois, gummies), mise en place d’une courte animation en boucle des objets tombant en arrière-plan. Travail sur matériaux, cycles de rendu et optimisation pour export d’un GIF ou vidéo courte.</p>
+            </article>
+
+            <article id="proj-embedded-linux" class="proj">
+              <h3>Embedded Linux & Yocto — auto-formation</h3>
+              <div class="tags small">Yocto • OpenEmbedded • Cross-compilation</div>
+              <p>Objectif d’apprentissage : génération d’images Linux embarquées, écriture de recettes, configuration d’un SDK de cross-compilation et déploiement sur cibles ARM. Compétences recherchées : intégration composants, dépannage toolchain, packaging.</p>
+            </article>
+
+            <article id="proj-frama" class="proj">
+              <h3>Analyse statique — Frama‑C et annotation</h3>
+              <div class="tags small">Frama‑C • analyse formelle • annotations</div>
+              <p>Travail sur l'annotation et la compréhension des options d'unrolling (<code>-ulevel</code>, <code>-slevel</code>) et adaptation de code pour l'analyse (boucles, branches). Expérience avec diagnostics et correction de code non conforme.</p>
+            </article>
+
+            <article id="proj-keil" class="proj">
+              <h3>Projet Keil / ESP32 & développement embarqué</h3>
+              <div class="tags small">ESP-IDF • Keil µVision • debugging</div>
+              <p>Expérimentations avec différents environnements (Espressif IDE, ESP-IDF, Keil) pour configuration d'outils, scripts d'initialisation et debugging de bas niveau. Gestion de dépendances Python, Git et environnement de compilation.</p>
+            </article>
+
+            <article id="proj-presentation" class="proj">
+              <h3>Présentations & vulgarisation technique</h3>
+              <div class="tags small">PowerPoint • Communicating results</div>
+              <p>Réalisation de slides pour exposer travaux universitaires (ex : fréquence du cva6, CoreMark, MNIST) et synthèses techniques destinées à un public technique et non technique.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <section id="methodology" class="card" style="margin-top:16px">
+          <h2>Méthodologie & bonnes pratiques</h2>
+          <ul class="clean">
+            <li><strong>Itération rapide :</strong> prototypage des pilotes puis intégration progressive en RTOS.</li>
+            <li><strong>Tests unitaires et bancs de tests :</strong> testbench VHDL, harnesss C pour drivers, tests d’intégration LoRa.</li>
+            <li><strong>Gestion du code :</strong> Git, commits atomiques et README de projet pour reproductibilité.</li>
+            <li><strong>Documentation :</strong> schémas d’architecture, diagramme de tâches FreeRTOS, spécifications de message (taille, endianness, HMAC algo).</li>
+            <li><strong>Sécurité par couches :</strong> chiffrement au repos, signatures pour jetons, nonces/seq nums pour anti-replay.</li>
+          </ul>
+        </section>
+
+      </main>
+
+      <aside>
+        <div class="card">
+          <h2>Coordonnées & profil</h2>
+          <p class="meta">Marvin Ishq Yonan<br />Étudiant ingénieur — INSA Toulouse</p>
+          <p class="meta">Email : <a href="mailto:ishqyona@insa-toulouse.fr">ishqyona@insa-toulouse.fr</a><br/>Téléphone : +33 6 71 81 15 33</p>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h2>Compétences techniques</h2>
+          <div class="skills">
+            <span class="skill">C / C++</span>
+            <span class="skill">FreeRTOS</span>
+            <span class="skill">ESP32 • LoRa</span>
+            <span class="skill">NFC (PN532)</span>
+            <span class="skill">UART • SPI • I2C</span>
+            <span class="skill">AES • HMAC • ECDSA</span>
+            <span class="skill">VHDL • FPGA</span>
+            <span class="skill">Yocto / Embedded Linux</span>
+            <span class="skill">MATLAB / Simulink</span>
+            <span class="skill">Blender</span>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h2>Formation</h2>
+          <p class="small"><strong>INSA Toulouse</strong> — Diplôme d'ingénieur (Automatique & Électronique), spécialisation Systèmes Embarqués (2021–en cours).</p>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h2>Téléchargements</h2>
+          <p class="small">CV complet et documents :</p>
+          <a class="btn" href="assets/Marvin_IshqYonan_CV_TEST.pdf" target="_blank">Télécharger le CV (PDF)</a>
+        </div>
+
+      </aside>
+    </div>
+
+    <section class="card" style="margin-top:18px">
+      <h2 id="how-to-add-images">Où et comment ajouter des photos / fichiers</h2>
+      <p class="small">Images et fichiers se trouvent dans le dossier <code>assets/</code> du dépôt. Nomme tes fichiers sans espaces ni caractères spéciaux (ex : <code>profile.jpg</code>, <code>project_loRa.jpg</code>).</p>
+      <ol>
+        <li>Ajoute l'image au dossier local <code>assets/</code> puis <code>git add assets/mon_image.jpg</code>.</li>
+        <li>Modifie le fichier <code>index.html</code> : remplace le chemin <code>assets/nom.jpg</code> pour l'élément &lt;img&gt; correspondant.</li>
+        <li><code>git commit -m "Ajout image projet X"</code> et <code>git push</code>. GitHub Pages mettra à jour le site automatiquement.</li>
+      </ol>
+      <p class="small">Si tu préfères l'interface web : GitHub → Add file → Upload files → Commit, puis Edit file pour pointer le HTML vers le nouveau nom.</p>
+    </section>
+
+    <section id="contact" class="card" style="margin-top:18px">
+      <h2>Contact</h2>
+      <p class="small">Disponible pour PFE / stage en systèmes embarqués — contactez-moi par email ou téléphone. Je fournis aussi des démonstrations techniques, dépôts Git et dossiers d’architecture sur demande.</p>
+      <p class="small"><strong>Email:</strong> <a href="mailto:ishqyona@insa-toulouse.fr">ishqyona@insa-toulouse.fr</a> &nbsp; • &nbsp; <strong>Téléphone:</strong> +33 6 71 81 15 33</p>
+    </section>
+
+    <footer>
+      <div class="small">© Marvin Ishq Yonan — Portfolio technique complet • Dernière mise à jour : Octobre 2025</div>
+    </footer>
+  </div>
+
+  <script>
+    // Smooth scroll for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault(); const id=a.getAttribute('href').slice(1); if(!id) return; const el=document.getElementById(id); el && el.scrollIntoView({behavior:'smooth', block:'start'});
+      })
+    })
+  </script>
+</body>
+</html>
